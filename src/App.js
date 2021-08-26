@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Layout } from "antd";
+import "./App.css";
+import mainRoutes from "./routes/mainRoutes";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Layout.Content style={{ margin: "16px" }}>
+          <Switch>
+            {mainRoutes.map((route) =>
+              route.auth ? <PrivateRoute {...route} /> : <Route {...route} />
+            )}
+          </Switch>
+        </Layout.Content>
+        <Layout.Footer style={{ textAlign: "center" }}>Rajeeb A</Layout.Footer>
+      </Layout>
+    </Router>
   );
 }
 
